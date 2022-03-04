@@ -1,0 +1,49 @@
+name:                htex
+version:             0.0.0.0
+github:              "z5labs/htex"
+license:             BSD3
+author:              "Z5Labs"
+maintainer:          "cakub6@gmx.com"
+copyright:           "2022 Z5Labs"
+
+# extra-source-files: []
+
+# Metadata used when publishing your package
+synopsis:            Common utilities for working with TeX source files.
+category:            Development
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/z5labs/htex#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- text
+- megaparsec
+
+library:
+  source-dirs: src
+
+executables:
+  htex:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - htex
+
+tests:
+  htex-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - htex
+    - HUnit

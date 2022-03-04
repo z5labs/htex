@@ -1,0 +1,65 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           lsp-htex
+version:        0.0.0.0
+synopsis:       Language Server for TeX written in Haskell.
+description:    Please see the README on GitHub at <https://github.com/z5labs/htex#readme>
+category:       Development
+homepage:       https://github.com/z5labs/htex#readme
+bug-reports:    https://github.com/z5labs/htex/issues
+author:         Z5Labs
+maintainer:     cakub6@gmx.com
+copyright:      2022 Z5Labs
+license:        BSD3
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/z5labs/htex
+
+library
+  exposed-modules:
+      HTeX.Language.Server
+  other-modules:
+      Paths_lsp_htex
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , htex
+    , lsp
+  default-language: Haskell2010
+
+executable lsp-htex
+  main-is: Main.hs
+  other-modules:
+      Paths_lsp_htex
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , htex
+    , lsp
+    , lsp-htex
+  default-language: Haskell2010
+
+test-suite lsp-htex-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_lsp_htex
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , htex
+    , lsp
+    , lsp-htex
+  default-language: Haskell2010
