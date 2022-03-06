@@ -4,6 +4,7 @@ module HTeX.Language.Tokenizer
     , Item
     , Tokenizer
     , tokenize
+    , literal
     ) where
 
 import           Data.Char
@@ -24,33 +25,29 @@ data Item = Item SourcePos Token
 type Tokenizer = Parsec () String Token
 
 ctrlSeq :: Char -> Tokenizer
-ctrlSeq escapeChar = do
-  char escapeChar
-  fmap (CtrlSeq escapeChar) (ctrlSymbol <|> ctrlWord)
+ctrlSeq escapeChar = char escapeChar *> fmap (CtrlSeq escapeChar) (ctrlSymbol <|> ctrlWord)
   where
     ctrlSymbol = fmap CtrlSymbol (satisfy $ not .  isLetter)
-    ctrlWord = fmap CtrlWord (many letterChar)
+    ctrlWord = fmap CtrlWord (takeWhileP Nothing isLetter)
 
 startGroup :: Char -> Tokenizer
-startGroup startChar = fmap StartGroup $ char startChar
+startGroup = fmap StartGroup . char
 
 endGroup :: Char -> Tokenizer
-endGroup endChar = fmap EndGroup $ char endChar
+endGroup = fmap EndGroup . char
 
 literal :: [Char] -> Tokenizer
-literal specialChars = fmap Literal $ manyTill anySingle $ satisfy isSpaceOrSpecialChar
+literal specialChars = fmap Literal $ takeWhile1P Nothing (not . isSpaceOrSpecialChar)
   where
-    isSpaceOrSpecialChar c = if isSpace c
-      then True
-      else any ((==) c) specialChars
+    isSpaceOrSpecialChar c = isSpace c || c `elem` specialChars
 
 tokenize :: String -> String -> Either (ParseErrorBundle String ()) [Token]
 tokenize = runParser tokenize'
   where
-    tokenize' = many $ token' '\\' '{' '}'
+    tokenize' = many $ (token' '\\' '{' '}')
     token' escChar startChar endChar = do
       space
-      ctrlSeq escChar
+      (ctrlSeq escChar)
         <|> (startGroup startChar)
         <|> (endGroup endChar)
         <|> (literal [escChar, startChar, endChar])

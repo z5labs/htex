@@ -19,7 +19,6 @@ description:         Please see the README on GitHub at <https://github.com/z5la
 
 dependencies:
 - base >= 4.7 && < 5
-- text
 - megaparsec
 
 library:
@@ -34,6 +33,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - optparse-applicative
     - htex
 
 tests:

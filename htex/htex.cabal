@@ -31,7 +31,6 @@ library
   build-depends:
       base >=4.7 && <5
     , megaparsec
-    , text
   default-language: Haskell2010
 
 executable htex
@@ -45,13 +44,14 @@ executable htex
       base >=4.7 && <5
     , htex
     , megaparsec
-    , text
+    , optparse-applicative
   default-language: Haskell2010
 
 test-suite htex-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Test.HTeX.Language.Tokenizer
       Paths_htex
   hs-source-dirs:
       test
@@ -61,5 +61,4 @@ test-suite htex-test
     , base >=4.7 && <5
     , htex
     , megaparsec
-    , text
   default-language: Haskell2010
