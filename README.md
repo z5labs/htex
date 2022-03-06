@@ -1,6 +1,6 @@
 # htex
 
-A collection of packages and tools for working with TeX.
+A collection of packages and tools for working with TeX, written in Haskell.
 
 ## Packages
 
