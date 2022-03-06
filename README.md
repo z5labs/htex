@@ -1,14 +1,17 @@
-# lsp-latex - **WIP**
+# htex
 
-A Language Server for LaTex.
+A collection of packages and tools for working with TeX.
 
-## Notes
+## Packages
 
-**Features:**
-- Autocomplete
-- Build & Preview
+### htex
 
-## LSP Details
+This is both a CLI tool and library for working with TeX source.
 
-From the above **Features** list, autocomplete and build/preview imply the LSP
-server needs to provide completion support and execute command support.
+- **htex CLI** - convert TeX source into various format e.g. pdf.
+- **htex lib** - Provide a library for the tokenizing, parsing, etc. of TeX source.
+
+### lsp-htex
+
+This is both a CLI tool and library which expose a [Language Server](https://microsoft.github.io/language-server-protocol/) for TeX.
+For more details, see the README in the lsp-htex package.
