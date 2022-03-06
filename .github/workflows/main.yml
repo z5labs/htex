@@ -1,8 +1,8 @@
 on: [push]
-name: build
+name: Stack
 jobs:
-  stack:
-    name: Hello World
+  buildAndTest:
+    name: Build and Test
     runs-on: ubuntu-latest # or macOS-latest, or windows-latest
     steps:
       - uses: actions/checkout@v2
