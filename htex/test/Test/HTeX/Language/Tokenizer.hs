@@ -51,6 +51,10 @@ testData =
     , "     "
     , []
     )
+  , ( "startWithWhitespace"
+    , "\n   \t \r\n \\hello"
+    , [CtrlSeq '\\' (CtrlWord "hello")]
+    )
   , ( "endWithWhitespace"
     , "\\hello   \n"
     , [CtrlSeq '\\' (CtrlWord "hello")]
