@@ -37,14 +37,14 @@ endGroup :: Char -> Tokenizer
 endGroup = fmap EndGroup . char
 
 literal :: [Char] -> Tokenizer
-literal specialChars = fmap Literal $ takeWhile1P Nothing (not . isSpaceOrSpecialChar)
+literal specialChars = fmap Literal $ takeWhile1P Nothing $ not . isSpaceOrSpecialChar
   where
     isSpaceOrSpecialChar c = isSpace c || c `elem` specialChars
 
 tokenize :: String -> String -> Either (ParseErrorBundle String ()) [Token]
 tokenize = runParser tokenize'
   where
-    tokenize' = many $ (token' '\\' '{' '}')
+    tokenize' = many $ try $ token' '\\' '{' '}'
     token' escChar startChar endChar = do
       space
       (ctrlSeq escChar)
